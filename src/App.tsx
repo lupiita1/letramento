@@ -7,6 +7,9 @@ import {
   Palette,
 } from "lucide-react";
 
+const asset = (path: string) =>
+  `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+
 type Book = {
   title: string;
   author: string;
@@ -21,7 +24,7 @@ const books: Book[] = [
     author: "Ana Maria Gonçalves",
     description:
       "Livro que inspirou o samba enredo da Portela, no carnaval de 2024. A fascinante história de uma africana em busca do filho perdido que se tornou um clássico da literatura contemporânea. Um defeito de cor, de Ana Maria Gonçalves, é narrado de uma maneira original e pungente que prende a atenção da primeira à última página.",
-    cover: "/books/umDefeitoDeCor.jpg",
+    cover: asset("books/umDefeitoDeCor.jpg"),
     amazonUrl:
       "https://www.amazon.com.br/defeito-cor-Ana-Maria-Gon%C3%A7alves/dp/8501071757/ref=sr_1_1?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dib=eyJ2IjoiMSJ9._yeTfDloL2gaooChO3Xe14xe7u0_ooUB3Y6vFkke_fCZekxlAPrl9isMfrTu4pCNS-bC4rP_E2xkuCd5KlE3PJ1vJiicbCsa3XsnQpLAcmU.XFQ5IzoCUs47hdbAqoBchJdPEBKlEYo9MlBg61T9mls&dib_tag=se&keywords=Um+Defeito+de+Cor&qid=1777502437&sr=8-1",
   },
@@ -30,7 +33,7 @@ const books: Book[] = [
     author: "Ailton Krenak",
     description:
       "Nesta nova coleção de textos, Ailton Krenak nos provoca com a radicalidade de seu pensamento insurgente, que demove o senso comum e invoca o maravilhamento.",
-    cover: "/books/futuroAncestral.jpg",
+    cover: asset("books/futuroAncestral.jpg"),
     amazonUrl:
       "https://www.amazon.com.br/Futuro-ancestral-Ailton-Krenak/dp/6559211541/ref=sr_1_1?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=HY2UY8643LTW&dib=eyJ2IjoiMSJ9.4syftWkWYum9caFgyaPIrP7meFf3KryZgfTDqQo4XFxzxLikeaurtcOGue1XrfQpxzyqRhgRd4s2dDrUSqvE0rb2ewQ1ComATsnW_JLhcYdW8HT-9XNUsC2c3TRoe8k7FmAhSWLr7MQj5ac3jwhxdFw-_fW3jlOXhMPlQ4hed7h8PaOeURdjRLE4mlR8U85k7LvJjksZR1W7cr1Lis_HwBPPzEB8n6TbZkw4KoVAb5ABkTFpbDSddDzpw3oGsMYmqxKLEH_r9M_3qVXcmTRJ16w7K5djie4XXzIfpGVGAzw.wUTOkv8lHCXaO9FTLTR_IkMrxrCaovHEDMUR6gh6JvY&dib_tag=se&keywords=Futuro+Ancestral%22&qid=1777502566&sprefix=futuro+ancestral+%2Caps%2C302&sr=8-1",
   },
@@ -39,7 +42,7 @@ const books: Book[] = [
     author: "Grada Kilomba",
     description:
       "Memórias da Plantação é uma compilação de episódios cotidianos de racismo, escritos sob a forma de pequenas histórias psicanalíticas. Das políticas de espaço e exclusão às políticas do corpo e do cabelo, passando pelos insultos raciais, Grada Kilomba desmonta, de modo incisivo, a normalidade do racismo, expondo a violência e o trauma de se ser colocada/o como Outra/o.",
-    cover: "/books/memoriasDaPlantacao.jpg",
+    cover: asset("books/memoriasDaPlantacao.jpg"),
     amazonUrl:
       "https://www.amazon.com.br/Mem%C3%B3rias-planta%C3%A7%C3%A3o-Epis%C3%B3dios-racismo-cotidiano/dp/8555910803/ref=sr_1_1?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=3UQAE73JW5UG4&dib=eyJ2IjoiMSJ9._QwmVjwEcwZyHWfRQwnW9iwG2wSdzmJfcYCDnP-1Ssf5Tzw0Fn6IA97NdiWbp41xJsyyqznPfVappixmnBHuyLvT7erDdr-9Fbe5x0m6NX4h3SW2RIQwBKnvaZFQMtUcV30zJ2IfXtv9vO5P_Kx46GwHb3FqJTbb8pZFhTSL5W5s-DCq3231yuwICML9N-F8-ApEsGek5-6BlNixmVPiYCYnGe6VnXdAGG1r4lN7_2SG94icQly3Pdw8q-JVZQkB0FyxJ5NiTocmpi8g7b5YEDIALXpR9puh8FCv8dgNiCg.k5d6hNN4l6IcF2-XiHTSd_CnUwWpRcRx36W9Wen1rv0&dib_tag=se&keywords=Mem%C3%B3rias+da+Planta%C3%A7%C3%A3o&qid=1777502651&sprefix=mem%C3%B3rias+da+planta%C3%A7%C3%A3o%2Caps%2C276&sr=8-1",
   },
@@ -122,7 +125,9 @@ export default function App() {
   const vivenciaRef = useRef<HTMLElement | null>(null);
   const podcastsRef = useRef<HTMLDivElement | null>(null);
 
-  const scrollToSection = (sectionRef: React.RefObject<HTMLElement | null>) => {
+  const scrollToSection = <T extends HTMLElement>(
+    sectionRef: React.RefObject<T | null>
+  ) => {
     sectionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -134,7 +139,7 @@ export default function App() {
       >
         <video
           className="absolute inset-0 h-full w-full object-cover"
-          src="/videos/vecteezy_closeup-of-a-woman-s-eyes_2020827.mp4"
+          src={asset("videos/vecteezy_closeup-of-a-woman-s-eyes_2020827.mp4")}
           autoPlay
           muted
           loop
